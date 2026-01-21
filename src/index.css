@@ -10,7 +10,16 @@
 
 /* faqat klassga bog‘lab qo‘yish uchun */
 @custom-variant dark (&:where(.dark, .dark *));
-
+@layer utilities {
+  /* Scrollbarni butunlay berkitish */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
 /* Global transition */
 * {
   transition:

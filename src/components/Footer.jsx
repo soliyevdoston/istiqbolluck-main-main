@@ -41,8 +41,8 @@ export default function Footer() {
                 className="w-8 h-8 object-contain"
               />
               <div className="text-base md:text-lg font-bold uppercase tracking-tighter">
-                <span className="text-black dark:text-white">ISTIQBOL</span>
-                <span style={{ color: primaryGreen }}>LUCK</span>
+                <span className="text-[#E43E1C]  ">ISTIQBOL</span>
+                <span className="text-[#2E3192]">LUCK</span>
               </div>
             </Link>
             <p className="text-zinc-500 dark:text-zinc-400 text-[12px] leading-relaxed max-w-[240px]">

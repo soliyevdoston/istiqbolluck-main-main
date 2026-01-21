@@ -56,11 +56,9 @@ export default function Header() {
             alt="Logo"
             className="w-6 h-6 md:w-8 md:h-8 object-contain"
           />
-          <div className="flex font-bold text-[11px] md:text-sm uppercase tracking-tighter">
-            <span className="text-black dark:text-white transition-colors">
-              ISTIQBOL
-            </span>
-            <span className="text-[#39B54A]">LUCK</span>
+          <div className="flex font-bold text-[11px] gap-1 md:text-sm uppercase tracking-tighter">
+            <span className="text-[#E43E1C]  ">ISTIQBOL</span>
+            <span className="text-[#2E3192]">LUCK</span>
           </div>
         </Link>
 
