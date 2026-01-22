@@ -8,10 +8,12 @@ import Team from "./pages/Team";
 import Blog from "./pages/Blog";
 import SchoolLife from "./pages/SchoolLife";
 import BlogDetail from "./pages/BlogDetail";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
