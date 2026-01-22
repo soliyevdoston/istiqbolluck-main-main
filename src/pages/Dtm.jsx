@@ -273,16 +273,13 @@ export default function DtmPremium() {
       </AnimatePresence>
 
       <section className="min-h-screen flex flex-col pt-20 px-4 sm:px-10 pb-10">
-        <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center gap-6">
+        <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center gap-4">
           {/* 1. NAVIGATION TOGGLE (Joyi o'zgardi) */}
-          <div
-            className="flex justify-center mb-4"
-            data-html2canvas-ignore="true"
-          >
-            <div className="inline-flex p-1 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-white dark:border-zinc-800 shadow-lg">
+          <div className="flex justify-center" data-html2canvas-ignore="true">
+            <div className="inline-flex  bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-white dark:border-zinc-800 shadow-lg">
               <button
                 onClick={() => navigate("/dtm")}
-                className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-[10px] sm:text-xs font-black uppercase transition-all ${location.pathname === "/dtm" ? "bg-[#39B54A] text-black shadow-md" : "text-slate-500 hover:text-slate-800 dark:hover:text-white"}`}
+                className={`flex items-center gap-2 px-4 sm:px-6 py-1 rounded-xl text-[10px] sm:text-xs font-black uppercase transition-all ${location.pathname === "/dtm" ? "bg-[#39B54A] text-black shadow-md" : "text-slate-500 hover:text-slate-800 dark:hover:text-white"}`}
               >
                 <User size={16} /> O'quvchi DTM ko'rsatkichi
               </button>
