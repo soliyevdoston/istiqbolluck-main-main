@@ -12,13 +12,12 @@ import {
   Briefcase,
   Plus,
   ArrowRight,
-  ArrowDown,
   Award,
   CheckCircle2,
   ChevronUp,
 } from "lucide-react";
 
-// --- 1. EDITORIAL SECTION TITLE (UNIFORM) ---
+// --- 1. REUSABLE SECTION TITLE ---
 const SectionTitle = ({ subtitle, title, desc }) => (
   <div className="max-w-7xl mx-auto px-6 mb-12 md:mb-20 text-left">
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-12">
@@ -59,55 +58,68 @@ export default function Team() {
       ? teachers
       : teachers.filter((t) => t.category === activeTab);
 
-  // Dastlabki ko'rinish limiti
   const teacherLimit = isMobile ? 6 : 8;
 
   return (
     <div className="bg-white dark:bg-[#050505] transition-colors min-h-screen font-sans overflow-x-hidden">
-      {/* --- 1. HERO SECTION (DIREKTOR ALOHIDA) --- */}
-      <section className="relative h-screen w-full flex flex-col justify-end bg-[#e2dfdf] dark:bg-[#080808]">
-        {/* Sahifa Titli */}
-        <div className="absolute top-28 left-6 md:left-12 z-20">
-          <motion.h1
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-6xl md:text-[130px] font-[900] dark:text-white tracking-tighter uppercase leading-[0.8] italic"
-          >
-            BIZNING <br /> <span className="text-[#39B54A]">JAMOA</span>
-          </motion.h1>
+      {/* --- 1. PREMIUM HERO SECTION --- */}
+      <section className="relative h-screen w-full flex flex-col items-center justify-center bg-zinc-50 dark:bg-[#080808] px-6 overflow-hidden">
+        {/* Orqa fon sarlavhasi (Faded Title) */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] dark:opacity-[0.07] select-none">
+          <h1 className="text-[25vw] font-black leading-none">TEAM</h1>
         </div>
 
-        {/* Direktor Rasmi (Contain - kesilmagan holatda) */}
-        <div className="absolute inset-0 flex justify-center lg:justify-end items-end z-10 pointer-events-none">
-          <img
-            src={director.img}
-            className="h-[70vh] md:h-[90vh] w-auto object-contain grayscale-[20%] hover:grayscale-0 transition-all duration-1000"
-            alt="Director"
-          />
-        </div>
-
-        {/* Direktor Qisqa Ma'lumot (Pastda) */}
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col md:flex-row justify-between items-end gap-6">
-          <div className="bg-white/80 dark:bg-black/80 backdrop-blur-xl p-6 md:p-10 rounded-[2.5rem] border border-white/20 shadow-2xl max-w-xl text-left">
-            <span className="text-[#39B54A] font-black uppercase tracking-widest text-[10px] mb-2 block italic">
-              School Director
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mb-4">
-              {director.name}
-            </h2>
-            <p className="text-zinc-500 italic text-sm md:text-lg leading-snug mb-6">
-              "{director.quote}"
-            </p>
-            <button
-              onClick={() => setSelected(director)}
-              className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest bg-[#39B54A] text-white px-8 py-4 rounded-full hover:bg-black transition-all"
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-10 items-center z-10">
+          <div className="lg:col-span-7 text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              Batafsil <ArrowRight size={16} />
-            </button>
+              <span className="inline-block px-4 py-2 bg-[#39B54A]/10 text-[#39B54A] rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+                Professionalizm va Tajriba
+              </span>
+              <h1 className="text-6xl md:text-9xl font-[900] dark:text-white tracking-tighter uppercase leading-[0.8] italic mb-10">
+                BIZNING <br /> <span className="text-[#39B54A]">JAMOA</span>
+              </h1>
+              <div className="max-w-md border-l-4 border-black dark:border-white pl-6">
+                <p className="text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 font-medium italic">
+                  "{director.quote}"
+                </p>
+                <div className="mt-4">
+                  <p className="text-sm font-black dark:text-white uppercase">
+                    {director.name}
+                  </p>
+                  <p className="text-[10px] font-bold text-[#39B54A] uppercase tracking-widest">
+                    School Founder | {director.experience} Yil Tajriba
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
-          <div className="hidden lg:block text-zinc-400 font-black text-xs uppercase tracking-[0.5em] rotate-90 origin-right pb-10">
-            Scroll down
-          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="lg:col-span-5 flex justify-center relative"
+          >
+            <div className="relative w-full max-w-[450px] aspect-[3/4] rounded-[3rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.2)] border-8 border-white dark:border-zinc-900">
+              <img
+                src={director.img}
+                className="w-full h-full object-cover"
+                alt="Director"
+              />
+              <button
+                onClick={() => setSelected(director)}
+                className="absolute bottom-6 right-6 bg-[#39B54A] text-white px-6 py-3 rounded-full font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-black transition-all"
+              >
+                Batafsil
+              </button>
+            </div>
+            {/* Dekorativ aylana */}
+            <div className="absolute -z-10 -bottom-10 -right-10 w-40 h-40 bg-[#39B54A]/20 rounded-full blur-3xl"></div>
+          </motion.div>
         </div>
       </section>
 
@@ -116,9 +128,9 @@ export default function Team() {
         <SectionTitle
           subtitle="Management"
           title="Rahbariyat"
-          desc="Maktab faoliyatini tizimli boshqaruvchi va sifatni ta'minlovchi jamoa."
+          desc="Tizimli boshqaruv va sifat nazorati bo'yicha professional jamoa."
         />
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {(showFullAdmin ? administration : administration.slice(0, 4)).map(
             (p) => (
               <TeamMemberCard key={p.id} person={p} onClick={setSelected} />
@@ -129,7 +141,7 @@ export default function Team() {
           <div className="mt-16 flex justify-center">
             <button
               onClick={() => setShowFullAdmin(!showFullAdmin)}
-              className="px-10 py-4 border-b-2 border-[#39B54A] text-[#39B54A] font-black text-[10px] uppercase tracking-widest hover:gap-6 transition-all flex items-center gap-3"
+              className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-[#39B54A] border-b-2 border-[#39B54A] pb-1 hover:gap-6 transition-all"
             >
               {showFullAdmin ? (
                 <>
@@ -137,7 +149,7 @@ export default function Team() {
                 </>
               ) : (
                 <>
-                  Barcha rahbarlarni ko'rish <ArrowRight size={16} />
+                  Barchasi <ArrowRight size={16} />
                 </>
               )}
             </button>
@@ -145,19 +157,18 @@ export default function Team() {
         )}
       </section>
 
-      {/* --- 3. O'QITUVCHILAR (FILTR + BENTO GRID) --- */}
+      {/* --- 3. O'QITUVCHILAR (FILTR + GRID) --- */}
       <section className="py-24 max-w-7xl mx-auto px-6 border-t dark:border-zinc-900">
         <SectionTitle
-          subtitle="Faculty"
+          subtitle="Teachers"
           title={
             <>
-              Pedagogik <span className="text-[#39B54A]">Staff</span>
+              Pedagogik <span className="text-[#39B54A]">Jamoa</span>
             </>
           }
-          desc="Har bir yo'nalish bo'yicha eng yuqori malakali mutaxassislar."
+          desc="O'z fanining ustasi bo'lgan oliy toifali mutaxassislarimiz."
         />
 
-        {/* Filtrlar */}
         <div className="flex flex-wrap gap-2 mb-16">
           {categories.map((cat) => (
             <button
@@ -166,57 +177,60 @@ export default function Team() {
                 setActiveTab(cat.id);
                 setShowFullTeachers(false);
               }}
-              className={`px-8 py-3.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === cat.id ? "bg-[#39B54A] text-white shadow-xl shadow-green-500/20" : "bg-[#e2dfdf] dark:bg-zinc-900 text-zinc-500"}`}
+              className={`px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === cat.id ? "bg-[#39B54A] text-white" : "bg-[#e2dfdf] dark:bg-zinc-900 text-zinc-500"}`}
             >
               {cat.name}
             </button>
           ))}
         </div>
 
-        {/* O'qituvchilar Grid (Bento Logic: Lead katta) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10 auto-rows-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {(showFullTeachers
             ? filteredTeachers
             : filteredTeachers.slice(0, teacherLimit)
-          ).map((p, idx) => {
-            // Agar filtr tanlangan bo'lsa, birinchisi har doim katta
-            const isLead = activeTab !== "all" && idx === 0;
-            return (
+          ).map((p, idx) => (
+            <div
+              key={p.id}
+              className={
+                activeTab !== "all" && idx === 0
+                  ? "col-span-2 md:col-span-2 md:row-span-2"
+                  : "col-span-1"
+              }
+            >
               <TeamMemberCard
-                key={p.id}
                 person={p}
                 onClick={setSelected}
-                isLead={isLead}
+                isLead={activeTab !== "all" && idx === 0}
               />
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {filteredTeachers.length > teacherLimit && (
           <div className="mt-20 flex justify-center">
             <button
               onClick={() => setShowFullTeachers(!showFullTeachers)}
-              className="bg-black dark:bg-[#39B54A] text-white px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all"
+              className="bg-black dark:bg-[#39B54A] text-white px-12 py-5 rounded-full font-black text-[10px] uppercase tracking-widest shadow-2xl hover:scale-105 transition-all"
             >
-              {showFullTeachers ? "Yashirish" : "Barcha ustozlarni ko'rish"}
+              {showFullTeachers ? "Yashirish" : "Barchasini ko'rish"}
             </button>
           </div>
         )}
       </section>
 
-      {/* --- 4. FULL-SCREEN BLUR MODAL --- */}
+      {/* --- PREMIUM MODAL (NO SCROLL, COMPACT INFO) --- */}
       <AnimatePresence>
         {selected && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[2000] flex items-center justify-center p-4 md:p-10 backdrop-blur-3xl bg-white/5 dark:bg-black/10"
+            className="fixed inset-0 z-[2000] flex items-center justify-center p-4 md:p-10 backdrop-blur-2xl bg-white/10 dark:bg-black/10"
           >
             <motion.div
               initial={{ scale: 0.9, y: 30 }}
               animate={{ scale: 1, y: 0 }}
-              className="bg-white dark:bg-zinc-950 w-full max-w-2xl rounded-[3rem] shadow-2xl overflow-hidden relative max-h-[90vh] overflow-y-auto"
+              className="bg-white dark:bg-zinc-950 w-full max-w-4xl rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden relative"
             >
               <button
                 onClick={() => setSelected(null)}
@@ -225,67 +239,64 @@ export default function Team() {
                 <X size={20} />
               </button>
 
-              <div className="bg-[#f8f8f8] dark:bg-zinc-900 p-8 md:p-12 flex justify-center">
-                <div className="w-[240px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-zinc-800">
-                  <img
-                    src={selected.img}
-                    className="w-full h-full object-cover"
-                    alt=""
-                  />
-                </div>
-              </div>
-
-              <div className="p-8 md:p-14 text-left">
-                <span className="text-[#39B54A] font-black uppercase text-[10px] tracking-[0.4em] mb-3 block italic">
-                  {selected.role || selected.subject}
-                </span>
-                <h2 className="text-4xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mb-8 italic">
-                  {selected.name}
-                </h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-[#e2dfdf] dark:bg-zinc-800 text-[#39B54A] rounded-full flex items-center justify-center shrink-0">
-                      <Briefcase size={18} />
-                    </div>
-                    <p className="text-sm font-bold dark:text-white">
-                      Tajriba: {selected.experience} Yil
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-[#e2dfdf] dark:bg-zinc-800 text-[#39B54A] rounded-full flex items-center justify-center shrink-0">
-                      <GraduationCap size={18} />
-                    </div>
-                    <p className="text-sm font-bold dark:text-white line-clamp-1">
-                      {selected.education}
-                    </p>
+              <div className="flex flex-col md:flex-row h-full">
+                {/* Modal Rasm (3:4 Ratio) */}
+                <div className="md:w-2/5 bg-[#f0f0f0] dark:bg-zinc-900 p-8 flex items-center justify-center">
+                  <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-zinc-800">
+                    <img
+                      src={selected.img}
+                      className="w-full h-full object-cover"
+                      alt=""
+                    />
                   </div>
                 </div>
 
-                {selected.id === director.id && selected.achievements && (
-                  <div className="mb-10 p-6 bg-[#39B54A]/5 rounded-3xl border border-[#39B54A]/10">
-                    <h4 className="text-[#39B54A] font-black text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
-                      <Award size={16} /> Yutuqlar
-                    </h4>
-                    <ul className="space-y-2">
-                      {selected.achievements.map((a, i) => (
-                        <li
-                          key={i}
-                          className="flex gap-3 text-xs md:text-sm text-zinc-600 dark:text-zinc-400"
-                        >
-                          <CheckCircle2
-                            size={14}
-                            className="text-[#39B54A] shrink-0 mt-0.5"
-                          />{" "}
-                          {a}
-                        </li>
-                      ))}
-                    </ul>
+                {/* Modal Ma'lumot (Hamma narsa bir ekranda) */}
+                <div className="md:w-3/5 p-8 md:p-12 text-left flex flex-col justify-center">
+                  <span className="text-[#39B54A] font-black uppercase text-[10px] tracking-[0.4em] mb-2 block italic">
+                    {selected.role || selected.subject}
+                  </span>
+                  <h2 className="text-3xl md:text-5xl font-black dark:text-white uppercase tracking-tighter mb-6 italic leading-none">
+                    {selected.name}
+                  </h2>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-4 bg-zinc-50 dark:bg-zinc-900 p-3 rounded-2xl">
+                      <Briefcase className="text-[#39B54A]" size={20} />
+                      <p className="text-sm font-bold dark:text-white">
+                        Ish tajribasi: {selected.experience} Yil
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4 bg-zinc-50 dark:bg-zinc-900 p-3 rounded-2xl">
+                      <GraduationCap className="text-[#39B54A]" size={20} />
+                      <p className="text-sm font-bold dark:text-white line-clamp-1">
+                        {selected.education}
+                      </p>
+                    </div>
                   </div>
-                )}
-                <p className="text-zinc-500 italic text-sm md:text-lg leading-relaxed border-t dark:border-zinc-800 pt-8">
-                  "{selected.bio}"
-                </p>
+
+                  {selected.id === director.id && selected.achievements && (
+                    <div className="mb-6">
+                      <h4 className="text-[#39B54A] font-black text-[10px] uppercase mb-3 flex items-center gap-2">
+                        <Award size={14} /> Yutuqlar
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selected.achievements.map((a, i) => (
+                          <span
+                            key={i}
+                            className="text-[10px] font-bold bg-[#39B54A]/5 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full border border-[#39B54A]/10"
+                          >
+                            {a}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <p className="text-zinc-500 italic text-sm md:text-base leading-relaxed border-t dark:border-zinc-800 pt-6">
+                    "{selected.bio}"
+                  </p>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -295,34 +306,44 @@ export default function Team() {
   );
 }
 
-// --- TEAM MEMBER CARD KOMPONENTI ---
+// --- CARD KOMPONENTI ---
 const TeamMemberCard = ({ person, onClick, isLead = false }) => (
   <motion.div
     layout
     onClick={() => onClick(person)}
-    className={`group cursor-pointer flex flex-col w-full h-full ${isLead ? "col-span-2 md:col-span-2 md:row-span-2" : "col-span-1"}`}
+    className="group cursor-pointer flex flex-col w-full h-full relative"
   >
-    <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] bg-[#e2dfdf] dark:bg-zinc-900 border border-transparent group-hover:border-[#39B54A]/40 transition-all duration-700 shadow-sm">
+    <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] bg-[#e2dfdf] dark:bg-zinc-900 border border-transparent group-hover:border-[#39B54A]/40 transition-all duration-500 shadow-sm">
       <img
         src={person.img}
-        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
-        alt=""
+        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
+        alt={person.name}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-        <p className="text-white font-black text-xl uppercase italic leading-none">
-          {person.name}
-        </p>
-        <p className="text-[#39B54A] font-bold text-[9px] uppercase tracking-widest mt-2">
-          {person.role || person.subject}
-        </p>
+
+      {/* "Batafsil" Yozuvi (O'ng pastda) */}
+      <div className="absolute bottom-0 right-0 bg-[#39B54A] text-white px-4 py-2 rounded-tl-2xl font-black text-[10px] uppercase tracking-widest bottom-2 opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+        Batafsil
       </div>
+
+      {/* Kattalashgan Lead Overlay */}
+      {isLead && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-6">
+          <p className="text-white font-black text-2xl uppercase italic">
+            {person.name}
+          </p>
+          <p className="text-[#39B54A] font-bold text-[10px] uppercase tracking-widest mt-2">
+            {person.role || person.subject}
+          </p>
+        </div>
+      )}
     </div>
+
     {!isLead && (
       <div className="mt-4 px-1 text-left">
-        <h4 className="text-[13px] md:text-xl font-black dark:text-white uppercase tracking-tight leading-tight italic group-hover:text-[#39B54A] transition-colors">
+        <h4 className="text-sm md:text-lg font-black dark:text-white uppercase tracking-tight italic group-hover:text-[#39B54A] transition-colors">
           {person.name}
         </h4>
-        <p className="text-zinc-400 font-bold text-[8px] md:text-[10px] uppercase tracking-widest mt-1">
+        <p className="text-zinc-400 font-bold text-[9px] md:text-[10px] uppercase tracking-widest mt-1">
           {person.role || person.subject}
         </p>
       </div>
