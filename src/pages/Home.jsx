@@ -494,7 +494,7 @@ export default function Home() {
             className="w-full h-full object-cover  "
           />
           {/* Minimalist gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent"></div>
         </div>
 
         {/* CONTENT */}
