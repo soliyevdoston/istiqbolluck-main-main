@@ -9,6 +9,7 @@ import Blog from "./pages/Blog";
 import SchoolLife from "./pages/SchoolLife";
 import BlogDetail from "./pages/BlogDetail";
 import ScrollToTop from "./components/ScrollToTop";
+import SchoolDtm from "./pages/SchoolDtm";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dtm" element={<Dtm />} />
+        <Route path="/schooldtm" element={<SchoolDtm />} />
         <Route path="/team" element={<Team />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/life" element={<SchoolLife />} />

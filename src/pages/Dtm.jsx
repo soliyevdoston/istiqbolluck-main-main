@@ -10,6 +10,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Search,
   School,
@@ -27,7 +28,9 @@ import {
   XCircle,
   CheckCircle,
   X,
-} from "lucide-react"; // Yangi ikonalar qo'shildi
+  User,
+  School as SchoolIcon,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -74,8 +77,9 @@ export default function DtmPremium() {
   const [loading, setLoading] = useState(true);
   const [studentsData, setStudentsData] = useState({});
   const reportRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // --- TOAST STATE VA FUNKSIYASI ---
   const [toast, setToast] = useState({ show: false, msg: "", type: "error" });
   const notify = (msg, type = "error") => {
     setToast({ show: true, msg, type });
@@ -187,9 +191,9 @@ export default function DtmPremium() {
     if (studentsData[searchId.trim()]) {
       setCurrentId(searchId.trim());
       setTestIndex(0);
-      notify("Natijalar yuklandi!", "success"); // Alert o'rniga
+      notify("Natijalar yuklandi!", "success");
     } else {
-      notify("ID topilmadi! Qayta tekshiring.", "error"); // Alert o'rniga
+      notify("ID topilmadi! Qayta tekshiring.", "error");
     }
   };
 
@@ -214,9 +218,9 @@ export default function DtmPremium() {
         (canvas.height * pdfWidth) / canvas.width,
       );
       pdf.save(`Result_${student.name}.pdf`);
-      notify("PDF muvaffaqiyatli saqlandi!", "success"); // Alert o'rniga
+      notify("PDF muvaffaqiyatli saqlandi!", "success");
     } catch (e) {
-      notify("Xatolik yuz berdi!", "error"); // Alert o'rniga
+      notify("Xatolik yuz berdi!", "error");
     } finally {
       setIsDownloading(false);
     }
@@ -237,7 +241,7 @@ export default function DtmPremium() {
 
   return (
     <div className="bg-[#f0f2f5] dark:bg-[#050505] min-h-screen text-slate-900 dark:text-white transition-all overflow-x-hidden relative">
-      {/* --- MOBILE VA DESKTOP TOAST COMPONENT --- */}
+      {/* --- TOAST COMPONENT --- */}
       <AnimatePresence>
         {toast.show && (
           <motion.div
@@ -267,8 +271,31 @@ export default function DtmPremium() {
           </motion.div>
         )}
       </AnimatePresence>
+
       <section className="min-h-screen flex flex-col pt-20 px-4 sm:px-10 pb-10">
         <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center gap-6">
+          {/* 1. NAVIGATION TOGGLE (Joyi o'zgardi) */}
+          <div
+            className="flex justify-center mb-4"
+            data-html2canvas-ignore="true"
+          >
+            <div className="inline-flex p-1 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-white dark:border-zinc-800 shadow-lg">
+              <button
+                onClick={() => navigate("/dtm")}
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-[10px] sm:text-xs font-black uppercase transition-all ${location.pathname === "/dtm" ? "bg-[#39B54A] text-black shadow-md" : "text-slate-500 hover:text-slate-800 dark:hover:text-white"}`}
+              >
+                <User size={16} /> O'quvchi DTM ko'rsatkichi
+              </button>
+              <button
+                onClick={() => navigate("/schooldtm")}
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-xl text-[10px] sm:text-xs font-black uppercase transition-all ${location.pathname === "/schooldtm" ? "bg-[#39B54A] text-black shadow-md" : "text-slate-500 hover:text-slate-800 dark:hover:text-white"}`}
+              >
+                <SchoolIcon size={16} /> Maktab DTM ko'rsatkichi
+              </button>
+            </div>
+          </div>
+
+          {/* 2. LOGO, TEXT VA SEARCH */}
           <div
             className="flex flex-col lg:flex-row justify-between items-center gap-6"
             data-html2canvas-ignore="true"
@@ -287,7 +314,7 @@ export default function DtmPremium() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                className="bg-white/50 dark:bg-white/5 backdrop-blur-sm px-1 py-3 rounded-2xl border border-white dark:border-white/5 shadow-sm"
+                className="bg-white/50 dark:bg-white/5 backdrop-blur-sm px-4 py-3 rounded-2xl border border-white dark:border-white/5 shadow-sm"
               >
                 <h2 className="text-sm sm:text-lg font-black italic uppercase tracking-tight text-slate-800 dark:text-white">
                   Ota-onalar va o'quvchilar uchun natijalarni ko'rish{" "}
@@ -320,11 +347,11 @@ export default function DtmPremium() {
             </form>
           </div>
 
+          {/* 3. DASHBOARD CARDS */}
           <div
             ref={reportRef}
             className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch w-full"
           >
-            {/* PROFILE COLUMN */}
             <div className="order-1 lg:order-3 lg:col-span-3 flex flex-col gap-4">
               <div className="bg-[#0f172a] dark:bg-zinc-900 text-white p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] shadow-2xl relative overflow-hidden border border-[#39B54A]/20">
                 <div className="relative z-10">
@@ -363,23 +390,20 @@ export default function DtmPremium() {
               </button>
             </div>
 
-            {/* MAIN CHART COLUMN */}
             <div className="order-2 lg:order-2 lg:col-span-6">
               <div className="bg-white dark:bg-zinc-900 p-6 sm:p-8 rounded-[2.5rem] sm:rounded-[3rem] shadow-2xl border dark:border-zinc-800 h-full flex flex-col">
-                <div className="flex justify-between items-start mb-8 sm:mb-10">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 sm:p-3 bg-slate-100 dark:bg-zinc-800 rounded-2xl">
-                      <Calendar size={18} className="text-[#39B54A]" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-black italic uppercase">
+                <div className="flex justify-between items-start mb-8 sm:mb-10 text-right">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={18} className="text-[#39B54A]" />
+                    <h3 className="text-lg font-black uppercase italic">
                       {currentTest.date}
                     </h3>
                   </div>
-                  <div className="text-right">
-                    <p className="text-[8px] sm:text-[10px] font-black uppercase text-slate-400 tracking-widest">
+                  <div className="bg-[#39B54A]/10 px-4 py-2 rounded-xl text-center">
+                    <p className="text-[8px] font-black uppercase text-slate-500">
                       Jami Ball
                     </p>
-                    <p className="text-3xl sm:text-5xl font-black text-[#39B54A] leading-none">
+                    <p className="text-3xl font-black text-[#39B54A]">
                       {currentTest.totalBall}
                     </p>
                   </div>
@@ -410,7 +434,6 @@ export default function DtmPremium() {
               </div>
             </div>
 
-            {/* STATS COLUMN */}
             <div className="order-3 lg:order-1 lg:col-span-3 grid grid-cols-2 lg:flex lg:flex-col gap-3 sm:gap-4">
               <StatCard
                 icon={<TrendingUp size={22} className="text-blue-500" />}
@@ -460,8 +483,10 @@ export default function DtmPremium() {
           )}
         </div>
       </section>
+
       <hr />
-      {/* DYNAMIKA SECTION */}
+
+      {/* 4. DYNAMIKA SECTION */}
       {comparisonData.length > 1 && (
         <div className="max-w-7xl mx-auto w-full px-6 py-24 flex flex-col gap-24 border-t dark:border-zinc-800">
           <div className="text-center space-y-4">
@@ -473,7 +498,6 @@ export default function DtmPremium() {
             </p>
           </div>
           <hr />
-          {/* Jami Ball Dinamikasi */}
           <div className="space-y-10">
             <div className="flex items-center gap-4">
               <div className="w-1.5 h-10 bg-[#39B54A] rounded-full" />
@@ -525,7 +549,6 @@ export default function DtmPremium() {
             </div>
           </div>
           <hr />
-          {/* Bloklar Dinamikasi */}
           <div className="space-y-10">
             <div className="flex items-center gap-4">
               <div className="w-1.5 h-10 bg-[#2E3192] rounded-full" />
@@ -588,7 +611,6 @@ export default function DtmPremium() {
             </div>
           </div>
           <hr />
-          {/* Majburiy Fanlar Dinamikasi */}
           <div className="space-y-10">
             <div className="flex items-center gap-4">
               <div className="w-1.5 h-10 bg-[#F97316] rounded-full" />
@@ -648,7 +670,7 @@ export default function DtmPremium() {
           </div>
         </div>
       )}
-      <hr />
+
       <footer className="py-20 text-center opacity-10 text-[10px] font-black uppercase tracking-[1em] select-none">
         Istiqbolluck.uz v0.2
       </footer>
