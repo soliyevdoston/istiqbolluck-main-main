@@ -17,7 +17,7 @@ export default function MarqueeRow({ items, reverse = false }) {
             {/* Responsiv Text: 300px da text-2xl, desktopda text-8xl */}
             <div
               className="text-2xl sm:text-4xl md:text-8xl font-black uppercase italic tracking-tighter 
-              text-zinc-900 dark:text-white/20 dark:group-hover:text-[#39B54A] transition-colors duration-500 cursor-default shrink-0"
+              text-zinc-900 dark:text-white/20 dark:text-[#39B54A] transition-colors duration-500 cursor-default shrink-0"
             >
               {item}
             </div>

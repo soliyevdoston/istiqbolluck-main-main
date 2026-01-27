@@ -940,7 +940,7 @@ export default function Home() {
           <iframe
             title="map"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.912659295463!2d71.22956197613638!3d40.43293285465283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb01b0ac926783%3A0xa103cff84e3dbd4b!2sIstiqbol%20luck%20xususiy%20maktabi!5e0!3m2!1sru!2s!4v1768546214781!5m2!1sru!2s"
-            className="w-full h-full grayscale opacity-80 dark:invert transition-all group-hover/map:grayscale-0 group-hover/map:opacity-100 duration-1000"
+            className="w-full h-full  dark:invert transition-all grayscale-0 group-hover/map:opacity-100 duration-1000"
             allowFullScreen
             loading="lazy"
           ></iframe>
