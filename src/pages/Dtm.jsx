@@ -224,7 +224,7 @@ export default function Dtm() {
     );
 
   return (
-    <div className="bg-[#f0f2f5] dark:bg-[#050505] min-h-screen text-slate-900 dark:text-white font-sans overflow-x-hidden pt-8 md:pt-16 transition-all">
+    <div className="bg-[#f0f2f5] dark:bg-[#050505] min-h-screen text-slate-900 dark:text-white font-sans overflow-x-hidden pt-16 md:pt-16 transition-all">
       {/* --- TOAST BILDIRISHNOMA --- */}
       <AnimatePresence>
         {toast.show && (
