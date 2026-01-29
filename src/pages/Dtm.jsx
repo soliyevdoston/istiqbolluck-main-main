@@ -62,7 +62,7 @@ const DEFAULT_STUDENT = {
   history: [
     {
       date: "27.01.2026",
-      cert: 100,
+      cert: 4,
       totalBall: 189.0,
       grantChance: 100,
       stats: [
@@ -305,11 +305,11 @@ export default function Dtm() {
 
       <main className="max-w-[1440px] mx-auto px-4 md:px-10 pb-12">
         {/* --- 6. HERO SECTION (H-SCREEN) --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch lg:h-[calc(100vh-160px)] min-h-[600px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch lg:h-[75vh] min-h-[500px] ">
           {/* SIDEBAR: YANGILANGAN ISM-FAMILIYA VA KARTALAR */}
-          <div className="lg:col-span-4 flex flex-col gap-4 order-1">
+          <div className="lg:col-span-4 flex flex-col gap-1 order-1">
             {/* O'quvchi kartasi (Boyitilgan dizayn) */}
-            <div className="bg-[#0f172a] text-white p-6 md:p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden border-b-8 border-[#39B54A] flex-1 flex flex-col justify-center items-center text-center">
+            <div className="bg-[#0f172a] text-white p-1 md:p-1 rounded-[2.5rem] shadow-2xl relative overflow-hidden border-b-8 border-[#39B54A] flex-1 flex flex-col justify-center items-center text-center">
               <div className="relative z-10 w-full">
                 {/* Avatar qismi */}
                 <div className="w-20 h-20 bg-gradient-to-br from-[#39B54A] to-emerald-700 rounded-full mx-auto mb-4 flex items-center justify-center shadow-2xl border-4 border-white/10 ring-4 ring-[#39B54A]/20">
@@ -343,7 +343,7 @@ export default function Dtm() {
                   />
                   <InfoLine
                     icon={<Star size={14} className="text-yellow-400" />}
-                    label="Yutuqlar"
+                    label="Sertifikatlar"
                     value={`${currentTest.cert} ta`}
                   />
                 </div>
@@ -355,7 +355,7 @@ export default function Dtm() {
             </div>
 
             {/* Desktop Statistika (2x2) */}
-            <div className="hidden lg:grid grid-cols-2 gap-3 h-[30%]">
+            <div className="hidden lg:grid grid-cols-2 gap-2 h-[30%]">
               <StatSquare
                 icon={<TrendingUp size={16} />}
                 label="Reyting"
@@ -377,7 +377,7 @@ export default function Dtm() {
               <StatSquare
                 icon={<Brain size={16} />}
                 label="Analiz"
-                value="Ok"
+                value="Ijobiy"
                 color="text-purple-500"
               />
             </div>
@@ -547,7 +547,7 @@ export default function Dtm() {
 
         {/* --- DINAMIKA BO'LIMI --- */}
         {comparisonData.length > 1 && (
-          <div className="mt-20 space-y-12">
+          <div className="mt-25 space-y-12">
             <div className="text-center">
               <h2 className="text-3xl md:text-4xl font-black uppercase italic tracking-tighter">
                 Natijalar <span className="text-[#39B54A]">dinamikasi</span>
