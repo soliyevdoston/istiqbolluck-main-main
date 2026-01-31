@@ -10,8 +10,7 @@ const commonAssets = {
       },
       {
         id: 2,
-        image:
-          "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800",
+        image: "/assets/gallary11.jpg",
       },
       {
         id: 3,
@@ -45,42 +44,41 @@ const commonAssets = {
     ],
   },
   life: {
-    hero_img:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+    hero_img: "/assets/gallary5.jpg",
     row1: [
-      "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800",
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+      "/assets/gallary1.jpg",
+      "/assets/gallary2.jpg",
+      "/assets/gallary3.jpg",
+      "/assets/gallary8.jpg",
+      "/assets/oshxona.jpg",
+      "/assets/gallary10.jpg",
     ],
     row2: [
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800",
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800",
-      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800",
+      "/assets/gallary4.jpg",
+      "/assets/gallary6.jpg",
+      "/assets/gallary7.jpg",
+      "/assets/oshxona2.jpg",
+      "/assets/gallary9.jpg",
+      "/assets/gallary11.jpg",
     ],
     fac_img: "/assets/qoriqlash.jpg",
     proc: {
-      theory:
-        "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800",
-      discipline:
-        "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800",
-      experience:
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800",
-      creative:
-        "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800",
+      theory: "/assets/gallary2.jpg",
+      discipline: "/assets/gallary10.jpg",
+      experience: "/assets/gallary12.jpg",
+      creative: "/assets/gallary7.jpg",
     },
   },
   home: {
-    hero_bg: "/assets/hero-bg.jpg",
+    hero_bg: "/assets/newhero.jpg",
     studentVids: [
       {
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-        thumbnail:
-          "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800",
+        videoUrl: "/videos/interview1.mp4",
+        thumbnail: "/assets/interview1-img.png",
       },
       {
-        videoUrl: "https://www.w3schools.com/html/movie.mp4",
-        thumbnail:
-          "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800",
+        videoUrl: "/videos/interview2.mp4",
+        thumbnail: "/assets/interview2-img.png",
       },
       {
         videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
@@ -89,16 +87,42 @@ const commonAssets = {
       },
     ],
     universities: [
-      "WIUT",
-      "INHA",
-      "TTPU",
-      "AMITY",
-      "MDIST",
-      "AKFA",
-      "WEBSTER",
+      // --- O'zbekistondagi Xalqaro Filiallar ---
+      "WESTMINSTER", // WIUT
+      "INHA", // Inha
+      "TURIN", // TTPU (Turin politexnika)
+      "WEBSTER", // Webster
+      "AMITY", // Amity
+      "MDIST", // Singapur instituti
+      "AKFA (CAU)", // Central Asian University
+      "TEAM", // Team universiteti
+      "BRITISH MANAGEMENT", // BMU
+
+      // --- O'zbekistondagi nufuzli Davlat OTMlari ---
+      "TATU", // Axborot texnologiyalari
+      "JIDU", // Diplomatiya (UWED)
+      "O'zMU", // Milliy Universitet
+      "TDIU", // Iqtisodiyot (Narxoz)
+      "ToshDTU", // Texnika universiteti (Politex)
+      "TTA", // Tibbiyot akademiyasi
+      "YANGI O'ZBEKISTON", // New Uzbekistan University
+      "FarDU", // Farg'ona davlat universiteti
+      "FarPI", // Farg'ona politexnika instituti
+      "SamDU", // Samarqand davlat universiteti
+      "AndDU", // Andijon davlat universiteti
+
+      // --- Dunyo bo'yicha TOP Universitetlar ---
       "HARVARD",
       "STANFORD",
       "MIT",
+      "OXFORD",
+      "CAMBRIDGE",
+      "YALE",
+      "PRINCETON",
+      "COLUMBIA",
+      "CHICAGO",
+      "UCL",
+      "NUS", // National University of Singapore
     ],
   },
   team: {
@@ -140,6 +164,8 @@ const createTranslation = (texts) => ({
   },
   home_page: {
     ...texts.home_page,
+    // MANA BU QATORNI QO'SHDIM:
+    hero_bg: commonAssets.home.hero_bg,
     life_gallery1: commonAssets.home.life_gallery1 || commonAssets.life.row1,
     life_gallery2: commonAssets.home.life_gallery2 || commonAssets.life.row2,
     studentFeedbacks: commonAssets.home.studentVids.map((v, i) => ({
@@ -434,8 +460,8 @@ const uzTexts = {
     feed_desc:
       "Bizning eng katta yutug'imiz — o'quvchilarimizning samimiy fikrlari.",
     studentFeedbacks: [
-      { name: "Lola Abdullayeva", role: "11-sinf bitiruvchisi" },
-      { name: "Asadbek Orifov", role: "10-sinf o'quvchisi" },
+      { name: "Ergasheva Aziza", role: "11-'f'sinf o'quvchisi" },
+      { name: "Habibullayeva Mehriniso", role: "10-sinf o'quvchisi" },
       { name: "Jasur Mirzayev", role: "9-sinf o'quvchisi" },
     ],
     textFeedbacks: [

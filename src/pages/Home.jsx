@@ -75,21 +75,21 @@ const DraggableMarquee = ({ items, baseVelocity = -0.4 }) => {
 
 const PremiumInfiniteSlider = ({
   items,
-  baseVelocity = -0.05,
+  baseVelocity = -0.5, // Tezlikni biroz oshirdik, chunki prujinasiz sekin ko'rinishi mumkin
   isText = false,
 }) => {
   const baseX = useMotionValue(0);
-  const smoothX = useSpring(baseX, {
-    damping: 2000,
-    stiffness: 200,
-    restDelta: 0.001,
-  });
-  const x = useTransform(smoothX, (v) => `${wrap(-20, -45, v)}%`);
+
+  // useSpring-ni olib tashladik, chunki u tezlikni o'zgartirib yuboradi.
+  // To'g'ridan-to'g'ri baseX-dan transform qilamiz.
+  const x = useTransform(baseX, (v) => `${wrap(-20, -40, v)}%`);
+
   const isDragging = useRef(false);
 
   useAnimationFrame((t, delta) => {
     if (!isDragging.current) {
-      let moveBy = baseVelocity * (delta / 200);
+      // Bir maromda siljish formulasi
+      let moveBy = baseVelocity * (delta / 1000);
       baseX.set(baseX.get() + moveBy);
     }
   });
@@ -98,7 +98,7 @@ const PremiumInfiniteSlider = ({
     <div className="overflow-hidden flex whitespace-nowrap py-2 w-full cursor-grab active:cursor-grabbing select-none">
       <motion.div
         className="flex gap-6 md:gap-16 items-center will-change-transform"
-        style={{ x }}
+        style={{ x }} // Endi x doimiy bir xil tezlikda o'zgaradi
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.05}
@@ -106,10 +106,12 @@ const PremiumInfiniteSlider = ({
         onDragEnd={() => (isDragging.current = false)}
         onDrag={(e, info) => {
           const currentX = baseX.get();
-          baseX.set(currentX + (info.delta.x / window.innerWidth) * 30);
+          // Drag sezuvchanligi
+          baseX.set(currentX + (info.delta.x / window.innerWidth) * 20);
         }}
       >
-        {[...Array(6)].map((_, outerIdx) => (
+        {/* Kontentni 4 marta takrorlash yetarli (perfomance uchun) */}
+        {[...Array(4)].map((_, outerIdx) => (
           <React.Fragment key={outerIdx}>
             {items.map((item, i) => (
               <div key={`${outerIdx}-${i}`} className="flex-shrink-0">
@@ -330,7 +332,7 @@ export default function Home() {
       <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://www.gazeta.uz/media/img/2022/09/HE29hc16640465414375_l.jpg"
+            src={t.home_page.hero_bg} // <--- ENDI TRANSLATIONS.JS DAGI RASMNI OLADI
             alt="School"
             className="w-full h-full object-cover"
           />
@@ -598,12 +600,12 @@ export default function Home() {
           <div className="flex flex-col gap-6 md:gap-12">
             <PremiumInfiniteSlider
               items={t.home_page.universities}
-              baseVelocity={-0.2}
+              baseVelocity={-0.3}
               isText={true}
             />
             <PremiumInfiniteSlider
               items={[...t.home_page.universities].reverse()}
-              baseVelocity={0.2}
+              baseVelocity={0.3}
               isText={true}
             />
           </div>
