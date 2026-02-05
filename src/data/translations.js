@@ -518,6 +518,7 @@ const uzTexts = {
       { id: "tabiiy", name: "Tabiiy fanlar" },
       { id: "ijtimoiy", name: "Ijtimoiy fanlar" },
       { id: "filologiya", name: "Filologiya" },
+      { id: "boshlangich", name: "Boshlang'ich sinf"},
     ],
     administration: [
       {

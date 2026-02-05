@@ -23,14 +23,16 @@ const wrap = (min, max, v) =>
   ((((v - min) % (max - min)) + (max - min)) % (max - min)) + min;
 
 // --- DRAGGABLE MARQUEE ---
+// --- 2. OPTIMIZED DRAGGABLE MARQUEE ---
 const DraggableMarquee = ({ items = [], baseVelocity = -0.4 }) => {
   const baseX = useMotionValue(0);
-  const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
+  // wrap(-25, -50, v) chunki biz 4 marta takrorlaymiz (har biri 25%)
+  const x = useTransform(baseX, (v) => `${wrap(-25, -50, v)}%`);
   const isDragging = useRef(false);
 
   useAnimationFrame((t, delta) => {
     if (!isDragging.current) {
-      let moveBy = baseVelocity * (delta / 1000) * 4;
+      let moveBy = baseVelocity * (delta / 1000) * 3; // Tezlik yana pasaytirildi (5 -> 3)
       baseX.set(baseX.get() + moveBy);
     }
   });
@@ -38,27 +40,29 @@ const DraggableMarquee = ({ items = [], baseVelocity = -0.4 }) => {
   return (
     <div className="overflow-hidden flex whitespace-nowrap py-3 w-full cursor-grab active:cursor-grabbing">
       <motion.div
-        className="flex gap-3 md:gap-14"
+        className="flex gap-3 md:gap-14 will-change-transform" // <--- PERFORMANCE OPTIMIZATION
         style={{ x }}
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0}
+        dragElastic={0.05}
         dragMomentum={false}
         onDragStart={() => (isDragging.current = true)}
         onDragEnd={() => (isDragging.current = false)}
         onDrag={(event, info) => {
           const currentX = baseX.get();
-          const deltaInUnits = (info.delta.x / window.innerWidth) * 50;
-          baseX.set(currentX + deltaInUnits);
+          // Drag sezuvchanligi
+          baseX.set(currentX + (info.delta.x / window.innerWidth) * 50);
         }}
       >
-        {[...items, ...items, ...items].map((img, i) => (
+        {/* Kontentni 4 marta takrorlaymiz */}
+        {[...items, ...items, ...items, ...items].map((img, i) => (
           <div key={i} className="flex-shrink-0">
-            <div className="w-[200px] h-[140px] md:w-[360px] md:h-[250px] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border-[2px] md:border-[4px] border-white dark:border-zinc-900 shadow-xl">
+            <div className="w-[200px] h-[140px] md:w-[360px] md:h-[250px] overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border-[2px] md:border-[4px] border-white dark:border-zinc-900 shadow-xl pointer-events-none select-none">
               <img
                 src={img}
                 alt="Gallery"
-                className="w-full h-full object-cover pointer-events-none"
+                draggable="false"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
