@@ -5,19 +5,10 @@ const commonAssets = {
       {
         id: 1,
         image:
-          "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800",
+          "/assets/gallary11.jpg",
       },
-      { id: 2, image: "/assets/gallary11.jpg" },
-      {
-        id: 3,
-        image:
-          "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800",
-      },
-      {
-        id: 4,
-        image:
-          "https://images.unsplash.com/photo-1526318472351-3d1843f15b54?w=800",
-      },
+      { id: 2, image: "/assets/sport.png" },
+    
     ],
     certs: [
       {
@@ -56,11 +47,11 @@ const commonAssets = {
       "/assets/gallary9.jpg",
       "/assets/gallary11.jpg",
     ],
-    fac_img: "/assets/qoriqlash.jpg",
+    fac_img: "/assets/qoriqlash2.jpg",
     proc: {
       theory: "/assets/gallary2.jpg",
       discipline: "/assets/gallary10.jpg",
-      experience: "/assets/gallary12.jpg/",
+      experience: "/assets/gallary18.jpg",
       creative: "/assets/gallary7.jpg",
     },
   },
@@ -256,28 +247,22 @@ const uzTexts = {
     "Ushbu sertifikat professional muvaffaqiyatni tasdiqlaydi.",
   blogPosts: [
     {
-      title: "Matematika Olimpiadasida g'alaba",
-      category: "Yutuqlar",
-      date: "10 Yan, 2024",
-      desc: "O'quvchilarimiz AQSHda 3 ta oltin medalni olishdi...",
-    },
-    {
-      title: "Innovatsion metodika",
+      title: "Innovatsion metodika: Ta'limda yangi davr",
       category: "Metodika",
       date: "05 Yan, 2024",
-      desc: "Ta'limda yangi texnologiyalar qo'llanilmoqda...",
+      desc: "Maktabimizda interaktiv doskalar, virtual reallik texnologiyalari va sun'iy intellekt yordamida shaxsiylashtirilgan ta'lim tizimi joriy etildi. O'quvchilar endi zamonaviy dasturiy ta'minot orqali o'z bilimlarini mustaqil rivojlantirish imkoniyatiga ega.",
+      content: "Istiqbol Luck maktabi ta'lim sohasida yangi standartlarni belgilamoqda. Biz STEM ta'limi, robotika va dasturlash kurslarini asosiy o'quv dasturiga kiritdik. Har bir sinf zamonaviy texnologiyalar bilan jihozlangan: interaktiv doskalar, planshetlar va maxsus dasturiy ta'minot. O'qituvchilarimiz xalqaro sertifikatlarga ega bo'lib, zamonaviy metodikalarni qo'llashda malakali. Natijada, o'quvchilarimiz milliy va xalqaro olimpiadalarda yuqori o'rinlarni egallashmoqda.",
+     
+      author: "Maktab metodist guruhi"
     },
     {
-      title: "Sport majmuasi ochilishi",
+      title: "Zamonaviy sport majmuasi ochildi",
       category: "Sport",
       date: "28 Dek, 2023",
-      desc: "Yangi suzish havzasi foydalanishga topshirildi...",
-    },
-    {
-      title: "San'at haftaligi",
-      category: "Madaniyat",
-      date: "12 Dek, 2023",
-      desc: "Yosh iste'dodlar ko'rgazmasi bo'lib o'tdi...",
+      desc: "Maktabimizda zamonaviy sport zali va mini futbol-basketbol-voleybol maydonchasi foydalanishga topshirildi. O'quvchilar uchun futbol, basketbol va voleybol bo'yicha professional mashg'ulotlar tashkil etilmoqda.",
+      content: "Yangi sport majmuasi o'quvchilarimizning jismoniy rivojlanishi uchun ideal sharoitlarni yaratdi. Professional murabbiylar rahbarligida kundalik mashg'ulotlar olib borilmoqda. Sport zali zamonaviy trenajorlar va jihozlar bilan to'ldirilgan. Yangi qurilgan mini sport maydonchasi futbol, basketbol va voleybol o'yinlari uchun maxsus sun'iy qoplama bilan jihozlangan. Maydonda zamonaviy LED yoritish tizimi o'rnatilgan bo'lib, kechki paytlarda ham mashg'ulotlar olib borish imkoniyati yaratilgan. Maktabimiz sport jamoalari tuman va viloyat musobaqalarida faol ishtirok etib, yuqori natijalarga erishmoqda. Sog'lom avlod - kuchli kelajak!",
+      
+      author: "Sport bo'limi"
     },
   ],
   certificates: [
@@ -818,28 +803,22 @@ const uzKrTexts = {
   cert_confirm_text: "Ушбу сертификат профессионал муваффақиятни тасдиқлайди.",
   blogPosts: [
     {
-      title: "Математика Олимпиадасида ғалаба",
-      category: "Ютуқлар",
-      date: "10 Ян, 2024",
-      desc: "Ўқувчиларимиз АҚШда 3 та олтин медални олишди...",
-    },
-    {
-      title: "Инновацион методика",
+      title: "Инновацион методика: Таълимда янги давр",
       category: "Методика",
       date: "05 Ян, 2024",
-      desc: "Таълимда янги технологиялар қўлланилмоқда...",
+      desc: "Мактабимизда интерактив доскалар, виртуал реаллик технологиялари ва сунъий интеллект ёрдамида шахсийлаштирилган таълим тизими жорий этилди. Ўқувчилар энди замонавий дастурий таъминот орқали ўз билимларини мустақил ривожлантириш имкониятига эга.",
+      content: "Истиқбол Лак мактаби таълим соҳасида янги стандартларни белгиламоқда. Биз STEM таълими, робототехника ва дастурлаш курсларини асосий ўқув дастурига киритдик. Ҳар бир синф замонавий технологиялар билан жиҳозланган: интерактив доскалар, планшетлар ва махсус дастурий таъминот. Ўқитувчиларимиз халқаро сертификатларга эга бўлиб, замонавий методикаларни қўллашда малакали. Натижада, ўқувчиларимиз миллий ва халқаро олимпиадаларда юқори ўринларни эгалламоқда.",
+     
+      author: "Мактаб методист гуруҳи"
     },
     {
-      title: "Спорт мажмуаси очилиши",
+      title: "Замонавий спорт мажмуаси очилди",
       category: "Спорт",
       date: "28 Дек, 2023",
-      desc: "Янги сузиш ҳавзаси фойдаланишга топширилди...",
-    },
-    {
-      title: "Санъат ҳафталиги",
-      category: "Маданият",
-      date: "12 Дек, 2023",
-      desc: "Ёш истеъдодлар кўргазмаси бўлиб ўтди...",
+      desc: "Мактабимизда замонавий спорт зали ва мини футбол-баскетбол-волейбол майдончаси фойдаланишга топширилди. Ўқувчилар учун футбол, баскетбол ва волейбол бўйича профессионал машғулотлар ташкил этилмоқда.",
+      content: "Янги спорт мажмуаси ўқувчиларимизнинг жисмоний ривожланиши учун идеал шароитларни яратди. Профессионал мураббийлар раҳбарлигида кундалик машғулотлар олиб борилмоқда. Спорт зали замонавий тренажорлар ва жиҳозлар билан тўлдирилган. Янги қурилган мини спорт майдончаси футбол, баскетбол ва волейбол ўйинлари учун махсус сунъий қоплама билан жиҳозланган. Майдонда замонавий LED ёритиш тизими ўрнатилган бўлиб, кечки пайтларда ҳам машғулотлар олиб бориш имкониятини яратди. Мактабимиз спорт жамоалари туман ва вилоят мусобақаларида фаол иштирок этиб, юқори натижаларга эришмоқда. Соғлом авлод - кучли келажак!",
+      
+      author: "Спорт бўлими"
     },
   ],
   certificates: [
@@ -1377,16 +1356,22 @@ const ruTexts = {
   cert_confirm_text: "Сертификат подтверждает профессиональные достижения.",
   blogPosts: [
     {
-      title: "Победа на Олимпиаде по математике",
-      category: "Успехи",
-      date: "10 Янв, 2024",
-      desc: "Наши ученики завоевали 3 золотые медали в США...",
-    },
-    {
-      title: "Инновационная методика",
+      title: "Инновационная методика: Новая эра в образовании",
       category: "Методика",
       date: "05 Янв, 2024",
-      desc: "Новые технологии в образовательном процессе...",
+      desc: "В нашей школе внедрены интерактивные доски, технологии виртуальной реальности и персонализированная система обучения с помощью искусственного интеллекта. Ученики теперь имеют возможность самостоятельно развивать свои знания через современное программное обеспечение.",
+      content: "Школа Истикбол Лак устанавливает новые стандарты в образовании. Мы включили STEM-образование, робототехнику и курсы программирования в основную учебную программу. Каждый класс оснащен современными технологиями: интерактивные доски, планшеты и специализированное программное обеспечение. Наши учителя имеют международные сертификаты и квалифицированы в применении современных методик. В результате наши ученики занимают высокие места на национальных и международных олимпиадах.",
+     
+      author: "Методическая группа школы"
+    },
+    {
+      title: "Открыт современный спортивный комплекс",
+      category: "Спорт",
+      date: "28 Дек, 2023",
+      desc: "В нашей школе введен в эксплуатацию современный спортивный зал и мини площадка для футбола-баскетбола-волейбола. Для учеников организованы профессиональные тренировки по футболу, баскетболу и волейболу.",
+      content: "Новый спортивный комплекс создал идеальные условия для физического развития наших учеников. Ежедневные тренировки проводятся под руководством профессиональных тренеров. Спортивный зал укомплектован современными тренажерами и оборудованием. Новая мини спортивная площадка оснащена специальным искусственным покрытием для футбола, баскетбола и волейбола. На площадке установлена современная LED система освещения, что позволяет проводить тренировки и в вечернее время. Спортивные команды нашей школы активно участвуют в районных и областных соревнованиях, достигая высоких результатов. Здоровое поколение - сильное будущее!",
+     
+      author: "Спортивный отдел"
     },
   ],
   certificates: [
@@ -1887,16 +1872,22 @@ const enTexts = {
   cert_confirm_text: "This certificate confirms professional excellence.",
   blogPosts: [
     {
-      title: "Math Olympiad Victory",
-      category: "Awards",
-      date: "Jan 10, 2024",
-      desc: "Our students won 3 gold medals in USA...",
-    },
-    {
-      title: "Innovative Methodology",
+      title: "Innovative Methodology: A New Era in Education",
       category: "Methodology",
       date: "Jan 05, 2024",
-      desc: "New technologies in the classroom...",
+      desc: "Our school has implemented interactive boards, virtual reality technologies, and a personalized learning system powered by artificial intelligence. Students now have the opportunity to independently develop their knowledge through modern software.",
+      content: "Istiqbol Luck School is setting new standards in education. We have integrated STEM education, robotics, and programming courses into the core curriculum. Every classroom is equipped with modern technology: interactive boards, tablets, and specialized software. Our teachers hold international certifications and are skilled in applying modern methodologies. As a result, our students achieve top positions in national and international olympiads.",
+    
+      author: "School Methodology Team"
+    },
+    {
+      title: "Modern Sports Complex Opened",
+      category: "Sport",
+      date: "Dec 28, 2023",
+      desc: "Our school has commissioned a modern sports hall and a mini football-basketball-volleyball ground. Professional training sessions in football, basketball, and volleyball are organized for students.",
+      content: "The new sports complex has created ideal conditions for the physical development of our students. Daily training sessions are conducted under the guidance of professional coaches. The sports hall is filled with modern trainers and equipment. The newly built mini sports ground is equipped with special artificial turf for football, basketball, and volleyball. The ground features a modern LED lighting system, enabling training sessions even in the evening hours. Our school's sports teams actively participate in district and regional competitions, achieving high results. Healthy generation - strong future!",
+     
+      author: "Sports Department"
     },
   ],
   certificates: [
