@@ -136,17 +136,34 @@ export default function Team() {
           title={t.team_page.admin_section.title}
           desc={t.team_page.admin_section.desc}
         />
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
-          {(showFullAdmin
-            ? t.team_page.administration
-            : t.team_page.administration.slice(0, 4)
-          ).map((p) => (
-            <TeamMemberCard
+        <div className="flex flex-col md:flex-row justify-center gap-10 md:gap-20">
+          {t.team_page.administration.map((p) => (
+            <motion.div
+              layout
               key={p.id}
-              person={p}
-              onClick={setSelected}
-              detailText={t.team_page.details_btn}
-            />
+              onClick={() => setSelected(p)}
+              className="group cursor-pointer w-full md:w-[45%] max-w-[500px] relative"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl bg-zinc-100 dark:bg-zinc-900">
+                <img
+                  src={p.img}
+                  className="w-full h-full object-cover transition-all duration-700 filter grayscale-0 group-hover:scale-110"
+                  alt={p.name}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-8 flex flex-col justify-end">
+                  <span className="inline-block px-3 py-1 mb-4 rounded-full bg-[#39B54A] text-white text-[10px] font-black uppercase tracking-widest w-fit">
+                    {p.achievements?.[0] || "Rahbariyat"}
+                  </span>
+                  <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic leading-none mb-2">
+                    {p.name}
+                  </h3>
+                  <p className="text-zinc-300 font-bold text-xs uppercase tracking-[0.2em] mb-4">
+                    {p.role}
+                  </p>
+                  <div className="h-[2px] w-12 bg-[#39B54A] group-hover:w-full transition-all duration-500" />
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
         {t.team_page.administration.length > 4 && (
