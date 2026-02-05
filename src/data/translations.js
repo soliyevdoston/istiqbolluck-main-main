@@ -76,9 +76,8 @@ const commonAssets = {
         thumbnail: "/assets/interview2-img.png",
       },
       {
-        videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
-        thumbnail:
-          "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800",
+        videoUrl: "/videos/interview1.mp4",
+        thumbnail: "/assets/interview1-img.png",
       },
     ],
     universities: [
@@ -106,19 +105,15 @@ const commonAssets = {
     ],
   },
   team: {
-    director_img:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800",
+    director_img: "/assets/XodiyevIqboljon.jpg",
     staff_imgs: {
-      a1: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800",
-      a2: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800",
-      a3: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800",
-      a4: "https://images.unsplash.com/photo-1580894732234-83e9e3ec5997?w=800",
-      a5: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800",
-      t1: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=800",
-      t2: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800",
-      t6: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800",
-      t11: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=800",
-      t12: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=800",
+      a1: "/assets/MehmonovKamoliddin.jpg",
+      a2: "/assets/TillaboyevAbbosbek.jpg",
+      t1: "/assets/QurbonovBurhoniddin.jpg",
+
+      t2: "/assets/KarimovaUmida.jpg",
+      t3: "/assets/MadumarovIlg'orjon.jpg",
+      t11: "/assets/NodiraAliyeva.jpg",
     },
   },
 };
@@ -419,8 +414,8 @@ const uzTexts = {
       "Bizning eng katta yutug'imiz — o'quvchilarimizning muvaffaqiyati.",
     studentFeedbacks: [
       { name: "Ergasheva Aziza", role: "11-sinf o'quvchisi" },
-      { name: "Habibullayeva Mehriniso", role: "10-sinf o'quvchisi" },
-      { name: "Jasur Mirzayev", role: "9-sinf o'quvchisi" },
+      { name: "Habibullayeva Mehriniso", role: "11-sinf o'quvchisi" },
+      { name: "Ergasheva Aziza", role: "11-sinf o'quvchisi" },
     ],
     textFeedbacks: [
       {
@@ -502,7 +497,7 @@ const uzTexts = {
       desc: "O'z sohasining eng malakali mutaxassislari.",
     },
     director: {
-      name: "Mamasodiqov Gulomjon",
+      name: "Xodiyev Iqboljon",
       role: "Maktab Direktori",
       quote:
         "Ta'lim - kelajak poydevori. Biz yashirin qobiliyatlarni kashf etamiz.",
@@ -515,13 +510,14 @@ const uzTexts = {
       { id: "all", name: "Barchasi" },
       { id: "aniq", name: "Aniq fanlar" },
       { id: "tabiiy", name: "Tabiiy fanlar" },
+      { id: "ijtimoiy", name: "Ijtimoiy fanlar" },
       { id: "filologiya", name: "Filologiya" },
     ],
     administration: [
       {
         id: "a1",
-        name: "Anvarova Dilnoza",
-        role: "O'quv mudiri",
+        name: "Mehmonov Kamoliddin",
+        role: "Ijrochi direktor",
         education: "TDPU",
         experience: "18",
         achievements: ["Oliy toifa"],
@@ -529,8 +525,8 @@ const uzTexts = {
       },
       {
         id: "a2",
-        name: "Karimov Sherzod",
-        role: "Ma'naviyat mudiri",
+        name: "Tillaboyev Abbosbek",
+        role: "O'quv ishlari bo'yicha direktor o'rinbosari",
         education: "O'zMU",
         experience: "12",
         achievements: ["Pedagog"],
@@ -543,10 +539,39 @@ const uzTexts = {
         category: "aniq",
         isLead: true,
         subject: "Matematika",
-        name: "Jasur Mirzayev",
-        education: "O'zMU",
-        experience: "10",
-        bio: "Olimpiada masalalari mutaxassisi.",
+        name: "Qurbonov Burhoniddin Baxtiyor o'g'li",
+        education: "Fargʻona davlat universiteti ",
+        achievements: ["Magistr", "90,14 balli A+ darajali milliy sertifikat"],
+        experience: "7",
+        bio: "700 dan oshiq o'quvchilarni oliy ta'lim muassasalariga kirishiga tayyorlagan.",
+      },
+      {
+        id: "t2",
+        category: "aniq",
+        isLead: false,
+        subject: "Matematika",
+        name: "Karimova Umidaxon Uktamovna",
+        education: "Farg'ona davlat Universiteti",
+        achievements: [
+          "Bakalavr",
+          "Mental arifmetika bo'yicha Xalqaro toifadagi ustoz  ",
+        ],
+        experience: "16",
+        bio: "500 dan oshiq o'quvchilarni oliy ta'lim muassasalariga kirishiga tayyorlagan.",
+      },
+      {
+        id: "t3",
+        category: "ijtimoiy",
+        isLead: true,
+        subject: "Tarix va huquqshunoslik",
+        name: "Madumarov Ilg'orjon Ravshanjonovich",
+        education: "Farg'ona davlat Universiteti",
+        achievements: [
+          "Bakalavr",
+          "Mental arifmetika bo'yicha Xalqaro toifadagi ustoz  ",
+        ],
+        experience: "16",
+        bio: "500 dan oshiq o'quvchilarni oliy ta'lim muassasalariga kirishiga tayyorlagan.",
       },
       {
         id: "t11",
@@ -1488,7 +1513,7 @@ const enTexts = {
     feed_desc: "Our biggest achievement is the success of our students.",
     studentFeedbacks: [
       { name: "Aziza Ergasheva", role: "11th grade student" },
-      { name: "Mehriniso Habibullayeva", role: "10th grade student" },
+      { name: "Mehriniso Habibullayeva", role: "11th grade student" },
     ],
     textFeedbacks: [
       {
@@ -1556,7 +1581,7 @@ const enTexts = {
       desc: "Highly qualified experts in their fields.",
     },
     director: {
-      name: "Gulomjon Mamasodiqov",
+      name: "Xodiyev Iqboljon",
       role: "School Director",
       quote: "Education is the foundation. We discover hidden talents.",
       education: "TSUE (Master's)",
