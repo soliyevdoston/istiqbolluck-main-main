@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, memo } from "react";
 import "../index.css";
 import {
   motion,
@@ -29,53 +29,63 @@ const wrap = (min, max, v) =>
 
 // --- 2. KOMPONENTLAR ---
 
-const DraggableMarquee = ({ items, baseVelocity = -0.4 }) => {
+// --- 1. HYPER-SMOOTH & SLOW MARQUEE ---
+const DraggableMarquee = memo(({ items = [], baseVelocity = -0.02 }) => {
   const baseX = useMotionValue(0);
-  // MANTIQ O'ZGARDi: -25 dan -50 gacha wrap qilish sakrashni yo'qotadi
-  const x = useTransform(baseX, (v) => `${wrap(-25, -50, v)}%`); 
+  
+  // Juda yuqori damping va past stiffness silliqlikni ta'minlaydi
+  const smoothX = useSpring(baseX, {
+    damping: 100, 
+    stiffness: 100,
+    restDelta: 0.001
+  });
+
+  const x = useTransform(smoothX, (v) => `${wrap(-25, -50, v)}%`);
   const isDragging = useRef(false);
 
   useAnimationFrame((t, delta) => {
     if (!isDragging.current) {
-      let moveBy = baseVelocity * (delta / 1000); 
+      // Delta vaqtiga bog'liq o'ta sekin harakat
+      let moveBy = baseVelocity * (delta / 10); 
       baseX.set(baseX.get() + moveBy);
     }
   });
 
   return (
-    <div className="overflow-hidden flex whitespace-nowrap py-4 w-full cursor-grab active:cursor-grabbing select-none">
+    <div className="overflow-hidden flex whitespace-nowrap py-4 md:py-8 w-full cursor-grab active:cursor-grabbing select-none">
       <motion.div
-        className="flex gap-4 md:gap-8 will-change-transform"
+        className="flex gap-4 md:gap-12 will-change-transform transform-gpu"
         style={{ x }}
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.05} 
         onDragStart={() => (isDragging.current = true)}
         onDragEnd={() => (isDragging.current = false)}
         onDrag={(e, info) => {
           const currentX = baseX.get();
-          baseX.set(currentX + (info.delta.x / window.innerWidth) * 20);
+          // Drag paytida sezgirlikni yanada yumshoq qilish
+          baseX.set(currentX + info.delta.x * 0.03);
         }}
       >
         {[...Array(4)].map((_, outerIdx) => (
-          <React.Fragment key={outerIdx}>
-            {items.map((item, i) => (
+          <div key={outerIdx} className="flex gap-4 md:gap-12">
+            {items.map((img, i) => (
               <div key={`${outerIdx}-${i}`} className="flex-shrink-0">
-                <img
-                  src={item}
-                  alt="Gallery"
-                  draggable="false"
-                  loading={outerIdx === 0 ? "eager" : "lazy"}
-                  className="h-[200px] md:h-[300px] w-[280px] md:w-[450px] object-cover rounded-[2rem] pointer-events-none shadow-lg select-none"
-                />
+                <div className="w-[260px] h-[180px] md:w-[450px] md:h-[320px] overflow-hidden rounded-[2.5rem] md:rounded-[3.5rem] border-[6px] md:border-[10px] border-white dark:border-zinc-900 shadow-2xl pointer-events-none">
+                  <img
+                    src={img}
+                    alt="Gallery"
+                    loading="lazy"
+                    className="w-full h-full object-cover transform-gpu scale-[1.01]"
+                  />
+                </div>
               </div>
             ))}
-          </React.Fragment>
+          </div>
         ))}
       </motion.div>
     </div>
   );
-};
+});
 
 const PremiumInfiniteSlider = ({
   items,
@@ -508,12 +518,12 @@ export default function Home() {
 
           <div className="space-y-4 md:space-y-8">
             <DraggableMarquee
-              baseVelocity={-0.4}
-              items={t.home_page.life_gallery1}
+              baseVelocity={-0.005}
+              items={t.life_page.galleryRow1}
             />
             <DraggableMarquee
-              baseVelocity={0.4}
-              items={t.home_page.life_gallery2}
+              baseVelocity={0.005}
+              items={t.life_page.galleryRow2}
             />
           </div>
         </div>
