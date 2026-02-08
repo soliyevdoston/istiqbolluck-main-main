@@ -51,7 +51,8 @@ const commonAssets = {
     
       "/assets/gallary16.jpg",
       "/assets/gallary17.jpg",
-      "/assets/gallary19.jpg",  "/assets/oshpaz2.jpg",
+      "/assets/gallary19.jpg", 
+       "/assets/oshpaz2.jpg",
       "/assets/oshxona5.jpg",
     ],
     fac_img: "/assets/qoriqlash2.jpg",
