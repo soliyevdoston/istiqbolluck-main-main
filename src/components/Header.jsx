@@ -28,6 +28,8 @@ export default function Header() {
     { code: "EN", label: "English" },
   ];
 
+  if (!t) return null;
+
   // Navigatsiya linklari tarjimalar bilan
   const navLinks = [
     { to: "/", label: t.about },
