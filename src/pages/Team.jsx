@@ -148,29 +148,38 @@ export default function Team() {
                 key={p.id}
                 onClick={() => setSelected(p)}
                 whileHover={{ y: -10 }}
-                className="group cursor-pointer relative col-span-1 lg:w-[400px]" // Fixed width for desktop consistency
+                className="group cursor-pointer relative col-span-1 lg:w-[400px]"
               >
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-[#fbfbf9] dark:bg-zinc-900 shadow-xl hover:shadow-2xl transition-all border border-zinc-100 dark:border-zinc-800">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-[#fbfbf9] dark:bg-zinc-900 shadow-xl hover:shadow-2xl transition-all border border-zinc-100 dark:border-zinc-800">
                   <img
                     src={p.img}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[10%] group-hover:grayscale-0"
                     alt={p.name}
                   />
                   
-                  {/* Overlay Gradient */}
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div>
-
-                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <span className="inline-block px-3 py-1 bg-[#39B54A] text-white text-[8px] md:text-[9px] font-black uppercase tracking-widest rounded-full mb-3 shadow-lg shadow-green-500/20">
+                  {/* DESKTOP: Overlay Gradient & Text */}
+                  <div className="hidden md:block absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 to-transparent"></div>
+                  <div className="hidden md:block absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <span className="inline-block px-3 py-1 bg-[#39B54A] text-white text-[9px] font-black uppercase tracking-widest rounded-full mb-3 shadow-lg shadow-green-500/20">
                       Rahbariyat
                     </span>
-                    <h3 className="text-2xl md:text-3xl font-black text-white uppercase italic leading-none mb-1">
+                    <h3 className="text-3xl font-black text-white uppercase italic leading-none mb-1">
                       {p.name}
                     </h3>
                     <p className="text-zinc-300 font-bold text-[10px] uppercase tracking-widest opacity-80">
                       {p.role}
                     </p>
                   </div>
+                </div>
+
+                {/* MOBILE: Text Below Image */}
+                <div className="md:hidden mt-4 text-center px-1">
+                   <h3 className="text-lg font-black text-black dark:text-white uppercase italic leading-none mb-1">
+                      {p.name}
+                   </h3>
+                   <p className="text-zinc-500 dark:text-zinc-400 font-bold text-[9px] uppercase tracking-widest">
+                      {p.role}
+                   </p>
                 </div>
               </motion.div>
             ))}
