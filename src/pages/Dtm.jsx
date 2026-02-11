@@ -2,6 +2,8 @@ import React, { useState, useMemo, useEffect } from "react";
 import {
   BarChart,
   Bar,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -178,24 +180,29 @@ export default function Dtm() {
   );
 
   const get20SlotsData = (key) => {
-    const history = [...student.history].reverse();
-    const result = [];
-    for (let i = 0; i < 20; i++) {
-      if (history[i]) {
+    // Return actual data, reversed (oldest first)
+    const data = [...student.history]
+      .reverse()
+      .map((item) => {
         const score =
           key === "totalBall"
-            ? history[i].totalBall
-            : history[i].stats.find((s) => s.name === key)?.score || 0;
-        result.push({
-          date: history[i].date,
+            ? item.totalBall
+            : item.stats.find((s) => s.name === key)?.score || 0;
+        return {
+          date: item.date,
           val: score,
           isPlaceholder: false,
-        });
-      } else {
-        result.push({ date: ``, val: 0, isPlaceholder: true });
-      }
-    }
-    return result;
+        };
+      });
+
+    // Add a default drop-off point at the end
+    data.push({
+      date: "",
+      val: 0,
+      isPlaceholder: true,
+    });
+
+    return data;
   };
 
   const handleSearch = (e) => {
@@ -224,7 +231,7 @@ export default function Dtm() {
     );
 
   return (
-    <div className="bg-[#f0f2f5] dark:bg-[#050505] min-h-screen text-slate-900 dark:text-white font-sans overflow-x-hidden pt-16 md:pt-16 transition-all">
+    <div className="bg-[#f0f2f5] dark:bg-[#050505] min-h-screen text-slate-900 dark:text-white font-sans overflow-x-hidden pt-17 md:pt-17 transition-all">
       <AnimatePresence>
         {toast.show && (
           <motion.div
@@ -436,9 +443,12 @@ export default function Dtm() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-zinc-900 p-6 md:p-8 rounded-[2.5rem] shadow-xl border border-zinc-200 dark:border-zinc-800 flex-1 flex flex-col">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg md:text-xl font-black uppercase italic tracking-tighter leading-none">
+            <div className="bg-white dark:bg-[#1e1e2e] text-slate-900 dark:text-white p-6 md:p-8 rounded-[2.5rem] shadow-xl dark:shadow-2xl border border-zinc-200 dark:border-white/5 flex-1 flex flex-col relative overflow-hidden group transition-colors duration-300">
+               {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-slate-200/50 dark:from-white/5 to-transparent rounded-full blur-3xl -z-0 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+              
+              <div className="flex justify-between items-center mb-6 relative z-10">
+                <h3 className="text-lg md:text-xl font-black uppercase italic tracking-tighter leading-none text-slate-800 dark:text-white/90">
                   {t.analysis_title}
                 </h3>
                 <div className="bg-[#39B54A] px-4 py-2 rounded-xl text-black shadow-md text-center">
@@ -450,45 +460,71 @@ export default function Dtm() {
                   </p>
                 </div>
               </div>
-              <div className="flex-1 w-full min-h-[250px]">
+              <div className="flex-1 w-full min-h-[250px] relative z-10">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={currentTest.stats}
-                    margin={{ left: -25, top: 25, right: 10 }}
+                    margin={{ left: 0, top: 25, right: 10, bottom: 5 }}
                   >
+                    <defs>
+                      {currentTest.stats.map((entry, index) => (
+                        <linearGradient key={index} id={`grad-${index}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={entry.color} stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor={entry.color} stopOpacity={0.2}/>
+                        </linearGradient>
+                      ))}
+                    </defs>
                     <CartesianGrid
                       vertical={false}
                       strokeDasharray="3 3"
-                      opacity={0.05}
+                      stroke="rgba(120,120,120,0.1)"
                     />
                     <XAxis
                       dataKey="name"
-                      tick={{ fontSize: 9, fontWeight: 800, fill: "#64748b" }}
+                      tick={{ fontSize: 9, fontWeight: 800, fill: "#94a3b8" }}
                       axisLine={false}
                       tickLine={false}
                       padding={{ left: 20, right: 20 }}
+                      interval={0}
                     />
-                    <YAxis hide domain={[0, 32]} />
+                    <YAxis 
+                      hide={false}
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }}
+                      domain={[0, (dataMax) => (dataMax > 30 ? 189 : dataMax > 10 ? 30 : 10)]}
+                      width={30}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#ffffff', 
+                        border: '1px solid rgba(0,0,0,0.1)', 
+                        borderRadius: '12px',
+                        color: '#1e293b',
+                        boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)'
+                      }}
+                       cursor={{ fill: 'rgba(255,255,255,0.05)', radius: [10, 10, 0, 0] }} 
+                    />
                     <Bar dataKey="score" radius={[10, 10, 0, 0]} barSize={45}>
                       {currentTest.stats.map((entry, index) => (
-                        <Cell key={index} fill={entry.color} />
+                        <Cell key={index} fill={`url(#grad-${index})`} />
                       ))}
                       <LabelList
                         dataKey="score"
                         position="top"
                         content={(props) => {
-                          const { x, y, width, index } = props;
+                          const { x, y, width, index, value } = props;
                           const max =
                             MAX_SCORES_MAP[currentTest.stats[index].name] || 10;
                           return (
                             <text
                               x={x + width / 2}
                               y={y - 12}
-                              fill="#64748b"
-                              fontSize={10}
+                              fill={currentTest.stats[index].color}
+                              fontSize={12}
                               fontWeight={900}
                               textAnchor="middle"
-                            >{`${currentTest.stats[index].score}/${max}`}</text>
+                            >{`${value}/${max}`}</text>
                           );
                         }}
                       />
@@ -590,80 +626,118 @@ export default function Dtm() {
 function DynamicRow({ title, color, data, keyKey }) {
   const { t } = useLanguage();
   const max = MAX_SCORES_MAP[keyKey] || 10;
+  
+  // Generate a unique ID for the gradient to avoid conflicts
+  const gradientId = `colorGradient-${keyKey.replace(/\s+/g, '')}`;
+
   return (
-    <div className="bg-white dark:bg-[#111111] p-6 md:p-8 rounded-[3rem] shadow-xl border border-zinc-200 dark:border-zinc-800 w-full h-[480px] flex flex-col">
-      <div className="flex items-center gap-4 mb-8 shrink-0">
-        <div
-          className="w-3 h-8 rounded-full"
-          style={{ backgroundColor: color }}
-        />
-        <h4 className="font-black uppercase italic text-sm md:text-base tracking-tight">
-          {title}
-        </h4>
+    <div className="bg-white dark:bg-[#1e1e2e] text-slate-900 dark:text-white p-6 md:p-8 rounded-[2rem] shadow-xl dark:shadow-2xl border border-zinc-200 dark:border-white/5 w-full h-[350px] md:h-[400px] flex flex-col relative overflow-hidden group transition-colors duration-300">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-slate-200/50 dark:from-white/5 to-transparent rounded-full blur-3xl -z-0 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+      
+      <div className="flex items-center justify-between mb-6 relative z-10 px-2">
+        <div className="flex items-center gap-4">
+            <div className="p-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-inner">
+            <TrendingUp size={20} style={{ color: color }} />
+            </div>
+            <div>
+                <h4 className="font-bold text-lg md:text-xl tracking-tight text-slate-800 dark:text-white/90 leading-none">
+                {title}
+                </h4>
+                <p className="text-[10px] font-bold text-slate-400 dark:text-white/40 uppercase tracking-wider mt-1">
+                    {data.filter(d => !d.isPlaceholder).length} ta test
+                </p>
+            </div>
+        </div>
       </div>
-      <div className="flex-1 overflow-x-auto hide-scrollbar">
-        <div
-          style={{
-            minWidth: `${Math.max(100, data.length * 55)}px`,
-            height: "100%",
-          }}
-        >
+
+      <div className="flex-1 w-full relative z-10 pl-2 overflow-x-auto hide-scrollbar">
+        <div style={{ minWidth: data.length > 5 ? `${data.length * 60}px` : '100%', height: "100%" }}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={data}
-              margin={{ left: 10, top: 40, right: 20, bottom: 20 }}
+          <AreaChart
+            data={data}
+            margin={{ top: 25, right: 10, left: 0, bottom: 45 }}
+          >
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={color} stopOpacity={0.4}/>
+                <stop offset="95%" stopColor={color} stopOpacity={0}/>
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(120,120,120,0.1)" />
+            <XAxis 
+              dataKey="date" 
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: '#94a3b8', fontSize: 9, fontWeight: 700 }}
+              dy={10}
+              angle={-90}
+              textAnchor="end"
+              interval={0}
+            />
+            <YAxis 
+              hide={false}
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }}
+              domain={[0, (dataMax) => (max > 100 ? 189 : max)]}
+              ticks={
+                max > 100 
+                  ? [0, 50, 100, 150, 189] 
+                  : max === 30 
+                    ? [0, 10, 20, 30] 
+                    : [0, 2, 4, 6, 8, 10]
+              }
+              width={35}
+            />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: '#ffffff', 
+                border: '1px solid rgba(0,0,0,0.1)', 
+                borderRadius: '12px',
+                color: '#1e293b',
+                boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)'
+              }}
+              itemStyle={{ color: color, fontWeight: 'bold' }}
+              cursor={{ stroke: '#cbd5e1', strokeWidth: 2 }}
+             
+            />
+             {/* Dark mode tooltip style override via CSS/logic could be tricky with inline styles, 
+                 so for now we stick to a clean white tooltip that looks good on both or primarily light. 
+                 Ideally, we'd detect theme. But white usually works fine. */}
+            <Area 
+              type="monotone" 
+              dataKey="val" 
+              stroke={color} 
+              strokeWidth={4}
+              fillOpacity={1} 
+              fill={`url(#${gradientId})`} 
+              activeDot={{ r: 6, strokeWidth: 0, fill: '#fff', stroke: color }}
             >
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-                opacity={0.03}
-              />
-              <XAxis
-                dataKey="date"
-                tick={{ fontSize: 9, fontWeight: 800, fill: "#94a3b8" }}
-                axisLine={false}
-                tickLine={false}
-                interval={0}
-                padding={{ left: 20, right: 20 }}
-              />
-              <YAxis hide domain={[0, max]} />
-              <Bar
-                dataKey="val"
-                radius={[6, 6, 0, 0]}
-                barSize={34}
-                background={{
-                  fill: "currentColor",
-                  className: "text-zinc-200 dark:text-zinc-800",
-                  radius: [6, 6, 0, 0],
-                }}
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={index}
-                    fill={entry.isPlaceholder ? "transparent" : color}
-                  />
-                ))}
-                <LabelList
-                  dataKey="val"
-                  position="top"
+                <LabelList 
+                  dataKey="val" 
+                  position="top" 
+                  offset={10}
                   content={(props) => {
-                    const { x, y, width, value, index } = props;
+                    const { x, y, value, index } = props;
                     if (data[index].isPlaceholder || value === 0) return null;
                     return (
-                      <text
-                        x={x + width / 2}
-                        y={y - 12}
-                        fill={color}
-                        fontSize={10}
-                        fontWeight={900}
+                      <text 
+                        x={x} 
+                        y={y - 10} 
+                        fill={color} 
+                        fontSize={12} 
+                        fontWeight="bold" 
                         textAnchor="middle"
-                      >{`${value}/${max}`}</text>
+                      >
+                        {value}
+                      </text>
                     );
                   }}
                 />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+            </Area>
+          </AreaChart>
+        </ResponsiveContainer>
         </div>
       </div>
     </div>
