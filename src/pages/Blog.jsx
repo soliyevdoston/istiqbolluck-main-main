@@ -142,6 +142,8 @@ export default function Blog() {
       </section>
 
       {/* 4. CERTIFICATES SECTION */}
+      {/* 4. CERTIFICATES SECTION (Temporarily Hidden) */}
+      {/* 
       <section className="bg-white dark:bg-[#080808] py-20 border-t border-zinc-100 dark:border-zinc-900">
         <div className="max-w-7xl mx-auto px-6">
            <div className="text-center mb-16">
@@ -169,6 +171,23 @@ export default function Blog() {
                   </motion.div>
               ))}
            </div>
+        </div>
+      </section> 
+      */}
+
+      {/* 5. INTERNATIONAL ACHIEVEMENTS (NEW) */}
+      <section className="bg-[#fbfcff] dark:bg-[#050505] py-24 mb-20 border-t border-zinc-100 dark:border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+             <div className="inline-block p-4 rounded-full bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 shadow-lg mb-8">
+                <Award size={32} className="text-[#39B54A]" />
+             </div>
+             <h2 className="text-3xl md:text-5xl font-black dark:text-white uppercase tracking-tighter leading-none mb-6">
+                {t.intl_title}
+             </h2>
+             <div className="w-24 h-1 bg-[#39B54A] mx-auto rounded-full mb-8 opacity-50"></div>
+             <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg md:text-xl italic">
+                {t.intl_desc}
+             </p>
         </div>
       </section>
 
