@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import AIChat from "./components/AIChat";
 import ScrollToTop from "./components/ScrollToTop";
 import Loading from "./components/Loading";
+import BottomNav from "./components/BottomNav";
+import FloatingActions from "./components/FloatingActions";
 import { LanguageProvider } from "./context/LanguageContext";
 
 // Lazy loading pages for performance
@@ -35,8 +37,11 @@ function App() {
           </Routes>
         </Suspense>
 
-        <AIChat />
-        <Footer />
+        <FloatingActions />
+        <div className="pb-20 lg:pb-0">
+          <Footer />
+        </div>
+        <BottomNav />
       </Router>
     </LanguageProvider>
   );

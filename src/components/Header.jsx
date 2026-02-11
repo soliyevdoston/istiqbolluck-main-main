@@ -1,31 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import {
   Phone,
-  Menu,
-  X,
   Globe,
   ChevronDown,
-  Instagram,
-  Send,
-  Youtube,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext"; // Context'ni chaqiramiz
 
 export default function Header() {
   const { lang, changeLanguage, t } = useLanguage(); // Til tizimi
-  const [isOpen, setIsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const langRef = useRef(null);
-  const location = useLocation();
 
   // Tillar ro'yxati
   const languages = [
-    { code: "UZ", label: "O'zbekcha" },
-    { code: "UZ_KR", label: "Ўзбекча" },
-    { code: "RU", label: "Русский" },
-    { code: "EN", label: "English" },
+    { code: "UZ", label: "O'zbekcha", flag: "🇺🇿" },
+    { code: "UZ_KR", label: "Ўзбекча", flag: "🇺🇿" },
+    { code: "RU", label: "Русский", flag: "🇷🇺" },
+    { code: "EN", label: "English", flag: "🇬🇧" },
   ];
 
   if (!t) return null;
@@ -39,6 +32,9 @@ export default function Header() {
     { to: "/blog", label: t.blog },
   ];
 
+  // Current language flag finder
+  const currentFlag = languages.find(l => l.code === lang)?.flag || "🇺🇿";
+
   // Tashqarini bossa til menyusini yopish
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -49,9 +45,6 @@ export default function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  // Sahifa o'zgarganda mobil menyuni yopish
-  useEffect(() => setIsOpen(false), [location]);
 
   return (
     <>
@@ -104,7 +97,7 @@ export default function Header() {
               onClick={() => setIsLangOpen(!isLangOpen)}
               className="flex items-center gap-1.5 py-1 px-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all"
             >
-              <Globe size={14} className="text-zinc-500" />
+              <span className="text-lg leading-none">{currentFlag}</span>
               <span className="text-[10px] md:text-[11px] font-black text-zinc-800 dark:text-zinc-200 uppercase tracking-widest">
                 {lang === "UZ_KR" ? "ЎЗ" : lang}
               </span>
@@ -129,10 +122,11 @@ export default function Header() {
                         changeLanguage(item.code);
                         setIsLangOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2.5 text-[10px] font-bold uppercase transition-colors
+                      className={`w-full text-left px-4 py-2.5 text-[10px] font-bold uppercase transition-colors flex items-center gap-2
                         ${lang === item.code ? "text-[#39B54A] bg-[#39B54A]/5" : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900"}
                       `}
                     >
+                      <span className="text-base">{item.flag}</span>
                       {item.label}
                     </button>
                   ))}
@@ -140,8 +134,6 @@ export default function Header() {
               )}
             </AnimatePresence>
           </div>
-
-
 
           {/* TELEFON */}
           <a
@@ -155,107 +147,8 @@ export default function Header() {
               {t.phone}
             </span>
           </a>
-
-          {/* BURGER MENU */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-1.5 text-black dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-md transition-colors"
-          >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
         </div>
       </header>
-
-      {/* --- MOBILE MENU (Drawer) --- */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[2000]"
-            />
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.3 }}
-              className="fixed right-0 top-0 h-full w-[260px] bg-white dark:bg-[#0a0a0a] z-[2001] p-5 flex flex-col justify-between overflow-hidden"
-            >
-              <div>
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
-                    {t.menu}
-                  </span>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full dark:text-white"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-
-                <nav className="flex flex-col gap-0.5">
-                  {navLinks.map((link) => (
-                    <NavLink
-                      key={link.to}
-                      to={link.to}
-                      className={({ isActive }) => `
-                        py-2.5 text-base font-bold tracking-tight transition-all border-b border-zinc-50 dark:border-zinc-900
-                        ${isActive ? "text-[#39B54A]" : "text-zinc-800 dark:text-zinc-200 opacity-70"}
-                      `}
-                    >
-                      {link.label}
-                    </NavLink>
-                  ))}
-                </nav>
-              </div>
-
-              {/* Mobile Footer */}
-              <div className="space-y-3">
-                <a
-                  href={`tel:${t.phone.replace(/\s/g, "")}`}
-                  className="flex items-center gap-3 p-3 bg-zinc-50 dark:bg-zinc-900 rounded-xl border border-zinc-100 dark:border-zinc-800 group active:scale-95 transition-all"
-                >
-                  <div className="w-9 h-9 flex items-center justify-center rounded-full bg-[#39B54A] text-white shrink-0">
-                    <Phone size={16} fill="currentColor" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase">
-                      {t.contact}
-                    </span>
-                    <span className="text-xs font-bold dark:text-white group-hover:text-[#39B54A]">
-                      {t.phone}
-                    </span>
-                  </div>
-                </a>
-
-
-
-                <div className="flex justify-center gap-5 pt-1">
-                  {[
-                    { Icon: Instagram, link: t.socials?.instagram },
-                    { Icon: Send, link: t.socials?.telegram },
-                    { Icon: Youtube, link: t.socials?.youtube },
-                  ].map(({ Icon, link }, i) => (
-                    <a
-                      key={i}
-                      href={link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-50 dark:bg-zinc-900 text-zinc-400 hover:text-[#39B54A] border border-zinc-100 dark:border-zinc-800 transition-colors"
-                    >
-                      <Icon size={18} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </>
   );
 }

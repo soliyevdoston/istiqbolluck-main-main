@@ -227,18 +227,30 @@ export default function SchoolLife() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
             {t.life_page.missions.map((m, idx) => (
-              <div key={idx} className="p-10 rounded-[2.5rem] bg-[#fafaf5] dark:bg-[#0c0c0c] border border-zinc-100 dark:border-zinc-800 hover:border-[#39B54A]/30 transition-all duration-500 group text-center md:text-left shadow-sm hover:shadow-lg">
-                <div className="w-16 h-16 bg-white dark:bg-zinc-800 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:bg-[#39B54A] group-hover:text-white transition-colors duration-500 mx-auto md:mx-0">
-                  <Compass size={32} strokeWidth={1.5} />
+              <div 
+                key={idx} 
+                className={`group relative p-5 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-[#fafaf5] dark:bg-[#0c0c0c] border border-zinc-100 dark:border-zinc-800 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden ${
+                  idx === 2 ? "col-span-2 md:col-span-1" : "col-span-1"
+                }`}
+              >
+                 {/* Decorative Background Blob */}
+                 <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-[#39B54A]/5 rounded-full blur-xl group-hover:bg-[#39B54A]/10 transition-colors"></div>
+
+                <div className="relative z-10">
+                  <div className="w-10 h-10 md:w-16 md:h-16 bg-[#39B54A]/10 dark:bg-[#39B54A]/20 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-[#39B54A] group-hover:text-white transition-all duration-500">
+                    <Compass size={20} className="text-[#39B54A] group-hover:text-white transition-colors duration-500 md:w-7 md:h-7" strokeWidth={2} />
+                  </div>
+                  
+                  <h3 className="text-sm md:text-2xl font-black mb-2 md:mb-4 text-zinc-900 dark:text-white uppercase italic tracking-tight leading-tight">
+                    {m.title}
+                  </h3>
+                  
+                  <p className="text-[10px] md:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-medium">
+                    {m.desc}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-black mb-4 dark:text-white uppercase italic tracking-tight">
-                  {m.title}
-                </h3>
-                <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
-                  {m.desc}
-                </p>
               </div>
             ))}
           </div>
