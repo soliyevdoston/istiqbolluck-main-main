@@ -305,22 +305,29 @@ export default function Home() {
     }
     setStatus("loading");
     const botToken = "7893849239:AAEalenahp_ar51YDUBYu5Fr6SazLgGu7dI";
-    const chatId = "8389397224";
+    const chatIds = ["8389397224", "894403107"]; // Multiple chat IDs
     const message = `🎯 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${name}\n📞 <b>Telefon:</b> ${phone}`;
     try {
-      const response = await fetch(
-        `https://api.telegram.org/bot${botToken}/sendMessage`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: "HTML",
-          }),
-        },
+      // Send message to all chat IDs
+      const promises = chatIds.map(chatId =>
+        fetch(
+          `https://api.telegram.org/bot${botToken}/sendMessage`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: message,
+              parse_mode: "HTML",
+            }),
+          },
+        )
       );
-      if (response.ok) {
+      
+      const responses = await Promise.all(promises);
+      
+      // Check if at least one message was sent successfully
+      if (responses.some(response => response.ok)) {
         setStatus("success");
         setName("");
         setPhone("+998");
