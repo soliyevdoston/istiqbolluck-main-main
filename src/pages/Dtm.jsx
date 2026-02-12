@@ -767,12 +767,12 @@ function StatSquare({ icon, label, value, color, compact }) {
       </div>
       <div>
         <p
-          className={`font-black text-slate-400 uppercase tracking-tighter ${compact ? "text-[5px]" : "text-[6px] mb-0.5"}`}
+          className={`font-black text-slate-400 uppercase tracking-tighter ${compact ? "text-[5px]" : "text-[10px] mb-0.5"}`}
         >
           {label}
         </p>
         <p
-          className={`font-black leading-none ${compact ? "text-[8px]" : "text-base tracking-tighter"}`}
+          className={`font-black leading-none ${compact ? "text-[8px]" : "text-xl tracking-tighter"}`}
         >
           {value}
         </p>

@@ -145,8 +145,7 @@ const PremiumInfiniteSlider = ({
   );
 };
 
-const VideoFeedbackCard = ({ feedback }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const VideoFeedbackCard = ({ feedback, isPlaying, onPlay }) => {
   return (
     <div className="flex-shrink-0 lg:shrink w-[82vw] sm:w-[45vw] lg:w-full snap-center px-2 lg:px-0 h-full">
       <div className="relative h-[450px] md:h-[520px] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden bg-black shadow-xl group">
@@ -159,7 +158,7 @@ const VideoFeedbackCard = ({ feedback }) => {
             />
             <div
               className="absolute inset-0 flex items-center justify-center cursor-pointer"
-              onClick={() => setIsPlaying(true)}
+              onClick={onPlay}
             >
               <motion.div
                 whileHover={{ scale: 1.1 }}
@@ -284,6 +283,7 @@ export default function Home() {
   const [status, setStatus] = useState("idle");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("+998");
+  const [playingVideoIndex, setPlayingVideoIndex] = useState(null);
 
   const handlePhoneChange = (e) => {
     let input = e.target.value.replace(/\D/g, "");
@@ -561,7 +561,11 @@ export default function Home() {
                   key={i}
                   className="snap-center shrink-0 lg:shrink w-[85vw] sm:w-[45vw] lg:w-auto"
                 >
-                  <VideoFeedbackCard feedback={f} />
+                  <VideoFeedbackCard 
+                    feedback={f}
+                    isPlaying={playingVideoIndex === i}
+                    onPlay={() => setPlayingVideoIndex(i)}
+                  />
                 </div>
               ))}
             </div>
